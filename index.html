@@ -9,10 +9,13 @@
 
 <body>
   <div id="app">
-    <input v-model="username" type="text" id="fullName" name="Name" placeholder="Name" /><br />
-    <input v-model="phone" type="number" id="phone" name="phone" placeholder="phone" /><br />
+    <input v-model="contactForm.name" type="text" id="fullName" name="Name" placeholder="Name" /><br />
+    <input v-model="contactForm.phone" type="number" id="phone" name="phone" placeholder="phone" /><br />
     <button @click="addContact()">Add Contact</button>
     <hr />
+    new Contact: {{contactForm.name}} : {{contactForm.phone}}
+    <hr />
+    Contact List
     <ul>
       <li v-for="person in contacts">{{person.name}} : {{person.phone}}</li>
     </ul>
@@ -24,8 +27,11 @@
 
   createApp({
     setup() {
-      const username = ref("");
-      const phone = ref(null);
+
+      const contactForm = ref({
+        name: '',
+        phone: ''
+      })
 
       const contacts = ref([
         {
@@ -34,18 +40,26 @@
         },
         {
           name: "Nasrin",
-          phone: 4532819,
+          phone: 45328198,
+        },
+        {
+          name: "Amir",
+          phone: 98563211,
         }
       ]);
       const addContact = () => {
-
-
+        if (contactForm.value.name && contactForm.value.phone) {
+          contacts.value.push(contactForm.value);
+        }
+        contactForm.value = {
+          name: '',
+          phone: ''
+        }
       };
 
       return {
         contacts,
-        username,
-        phone,
+        contactForm,
         addContact,
       };
     }
