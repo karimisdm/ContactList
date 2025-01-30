@@ -9,12 +9,13 @@
 
 <body>
   <div id="app">
-    <input  v-model="username"  type="text" placeholder="Name"/>
-    {{username}}
-    <hr/>
-    <div>{{person.name}}</div>
-    <button @click="addFunc()">add</button>
-    {{count}}
+    <input v-model="username" type="text" id="fullName" name="Name" placeholder="Name" /><br />
+    <input v-model="phone" type="number" id="phone" name="phone" placeholder="phone" /><br />
+    <button @click="addContact()">Add Contact</button>
+    <hr />
+    <ul>
+      <li v-for="person in contacts">{{person.name}} : {{person.phone}}</li>
+    </ul>
   </div>
 </body>
 <script src="./vue.global.js"></script>
@@ -23,22 +24,29 @@
 
   createApp({
     setup() {
-      const person = ref({
-        name: 'saeedeh',
-        age: 30
-      });
-      const count = ref(0);
-      const addFunc = () => {
-        count.value = count.value + 1;
-      };
       const username = ref("");
-      
+      const phone = ref(null);
+
+      const contacts = ref([
+        {
+          name: "Meysam",
+          phone: 62157483
+        },
+        {
+          name: "Nasrin",
+          phone: 4532819,
+        }
+      ]);
+      const addContact = () => {
+
+
+      };
 
       return {
-        person,
-        count,
-        addFunc,
-        username
+        contacts,
+        username,
+        phone,
+        addContact,
       };
     }
   }).mount("#app");
