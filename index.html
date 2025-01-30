@@ -5,17 +5,52 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+  * {
+    font-family: 'Times New Roman', Times, serif;
+  }
+  .lbl_contact {
+    font-size: 20px;
+    color: green;
+  }
+  .inform {
+    border: solid 2px rgb(45, 73, 2);
+    width: 200px;
+    height: 18px;
+  }
+  .Name {
+    margin-left: 35px;
+    margin-bottom: 10px;
+  }
+  .btn_add {
+    background-color: rgb(21, 102, 126);
+    color: white;
+    border-radius: 10px;
+    padding: 7px 12px;
+    margin-top: 20px;
+  }
+  .list {
+    font-weight: bold;
+    font-size: 25px;
+    color: rgb(137, 26, 241);
+  }
+  li {
+    font-size: 17px;
+    color: rgb(65, 6, 121);
+  }
+
+  </style>
 </head>
 
 <body>
   <div id="app">
-    <input v-model="contactForm.name" type="text" id="fullName" name="Name" placeholder="Name" /><br />
-    <input v-model="contactForm.phone" type="number" id="phone" name="phone" placeholder="phone" /><br />
-    <button @click="addContact()">Add Contact</button>
+    <label class="lbl_contact">Full Name : </label>
+    <input v-model="contactForm.name" type="text" id="fullName" class="inform Name" placeholder="Name" /><br />
+    <label class="lbl_contact">Phone Number : </label>
+    <input v-model="contactForm.phone" type="number" id="phone" class="inform Phone" placeholder="phone" /><br />
+    <button @click="addContact()" class="btn_add">Add Contact</button>
     <hr />
-    new Contact: {{contactForm.name}} : {{contactForm.phone}}
-    <hr />
-    Contact List
+    <span class="list">Contact List</span> 
     <ul>
       <li v-for="person in contacts">{{person.name}} : {{person.phone}}</li>
     </ul>
@@ -45,16 +80,22 @@
         {
           name: "Amir",
           phone: 98563211,
-        }
+        },
+        {
+          name: "Maryam",
+          phone: 91365428,
+        },
+        {
+          name: "Ehsan",
+          phone: 92365148,
+        },
       ]);
       const addContact = () => {
         if (contactForm.value.name && contactForm.value.phone) {
-          contacts.value.push(contactForm.value);
+          contacts.value.push({...contactForm.value});
         }
-        contactForm.value = {
-          name: '',
-          phone: ''
-        }
+        contactForm.value.name = '';
+        contactForm.value.phone = '';
       };
 
       return {
